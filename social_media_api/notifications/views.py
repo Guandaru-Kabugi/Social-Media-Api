@@ -10,6 +10,12 @@ from django_filters.rest_framework import DjangoFilterBackend
 User = get_user_model()
 
 class NotificationCollection(generics.GenericAPIView):
+    """
+    View to all notifications for that user.
+
+    This view handles GET requests to list all posts. Users must be authenticated to create a post.
+    supports filtering, such as using is_seen, which is a boolean.
+    """
     permission_classes = [permissions.IsAuthenticated]
     filter_backends = [DjangoFilterBackend] #I learned that this is better when it comes to booleans
     filterset_fields = ['is_seen'] #allows users to search and filter based on whether is_seen is true or false
@@ -44,6 +50,11 @@ class NotificationCollection(generics.GenericAPIView):
     #         return response.Response({"Error ":"You are not authorized To access this page"},status=status.HTTP_401_UNAUTHORIZED)
 #now I want to implement marking notifications as read
 class MarkNotificationsAsRead(generics.GenericAPIView):
+    """
+    View to sent notifications that the user can see individually.
+
+    This view handles GET requests to a single notification and if user is able to access it, it is marked as read.
+    """
     permission_classes=[permissions.IsAuthenticated]
     def post(self,request,pk):
         notification = get_object_or_404(Notification,id=pk)

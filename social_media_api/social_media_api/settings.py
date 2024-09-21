@@ -22,13 +22,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'django-insecure-@z53j*qb6l!4l331_80o)*htq+=-s!-(h7hz1$!dsd#krmk#)='
-SECRET_KEY = '&*&k^@nnys8s*q7i%qw_#&ix3z_l9!=g2oe3rfjb!6fz=hyz_v&*&k^@nnys8s*q7i%qw_#&ix3z_l9!=g2oe3rfjb!6fz=hyz_v&*&k^@nnys8s*q7i%qw_#&ix3z_l9!=g2oe3rfjb!6fz=hyz_v&*&k^@nnys8s*q7i%qw_#&ix3z_l9!=g2oe3rfjb!6fz=hyz_v'
+SECRET_KEY = 'django-insecure-@z53j*qb6l!4l331_80o)*htq+=-s!-(h7hz1$!dsd#krmk#)='
+# SECRET_KEY = '&*&k^@nnys8s*q7i%qw_#&ix3z_l9!=g2oe3rfjb!6fz=hyz_v&*&k^@nnys8s*q7i%qw_#&ix3z_l9!=g2oe3rfjb!6fz=hyz_v&*&k^@nnys8s*q7i%qw_#&ix3z_l9!=g2oe3rfjb!6fz=hyz_v&*&k^@nnys8s*q7i%qw_#&ix3z_l9!=g2oe3rfjb!6fz=hyz_v'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['pythonanywhere.com']
+ALLOWED_HOSTS = []
+
 
 
 # Application definition
@@ -165,3 +166,4 @@ X_FRAME_OPTIONS = 'DENY'
 #         "PORT": "3306",
 #     }
 # }
+

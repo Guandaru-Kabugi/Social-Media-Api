@@ -30,6 +30,11 @@ class ReadOnlyPostComments(BasePermission):
             return True
         return obj.author == request.user #here, I am assigning the rights for other methods to the user if they are the author
 class PostViewSet(viewsets.ModelViewSet):
+    """
+    user gets to view all posts and perform other crud operations if they are the author
+    The must be authenticated.
+
+    it is a post method."""
     permission_classes = [IsAuthenticated,ReadOnlyPostComments]
     serializer_class = PostSerializer
     queryset = Post.objects.all()
@@ -39,6 +44,11 @@ class PostViewSet(viewsets.ModelViewSet):
     filter_backends = [filters.SearchFilter]
     search_fields = ['title', 'content']
 class CommentViewSet(viewsets.ModelViewSet):
+    """
+    user gets to view all comments and perform other crud operations if they are the author
+    The must be authenticated.
+
+    it is a post method."""
     permission_classes = [IsAuthenticated,ReadOnlyPostComments]
     serializer_class = CommentSerializer
     queryset = Comment.objects.all()
@@ -89,7 +99,11 @@ def user_feed(request):
 class Like_Post(generics.GenericAPIView):
     #first, the user must be authenticated
     permission_classes = [permissions.IsAuthenticated]
-    
+    """
+    user gets to like a post by accessing it
+    The must be authenticated.
+
+    it is a post method."""
     def post(self,request,pk):
         #first we get the post
         post = get_object_or_404(Post,id=pk)
@@ -113,7 +127,12 @@ class Like_Post(generics.GenericAPIView):
         
 class Unlike_Post(generics.GenericAPIView):
     permission_classes=[permissions.IsAuthenticated]
-    
+    """
+    user gets to unlike a post they liked by accessing it
+    The must be authenticated.
+
+    it is a post method.
+    """
     def post(self,request,pk):
         #we first get the post that was liked
         post = get_object_or_404(Post,id=pk)

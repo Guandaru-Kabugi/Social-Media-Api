@@ -19,6 +19,20 @@ from django.contrib.contenttypes.models import ContentType
 #use a function view with an api decorator to signup
 @api_view(['POST'])
 def signup(request):
+    """
+    user gets to register
+    required json details include
+    {
+            "username":"sample",
+            "email":"sample@gmail.com",
+            "password":"samplepassword",
+            "first_name":"samplename",
+            "last_name":"samplename",
+            "date_of_birth":"yyyy-mm-dd",
+            "bio":"",
+            "profile_picture":"link"
+            }
+    it is a post method."""
     serializer = UserSerializer(data=request.data)
     #check validity of serializer
     if serializer.is_valid():
@@ -34,6 +48,20 @@ def signup(request):
         return Response({"token":token.key,"user":serializer.data})
 @api_view(['POST'])
 def signup_user(request):
+    """
+    user gets to register
+    required json details include
+    {
+            "username":"sample",
+            "email":"sample@gmail.com",
+            "password":"samplepassword",
+            "first_name":"samplename",
+            "last_name":"samplename",
+            "date_of_birth":"yyyy-mm-dd",
+            "bio":"",
+            "profile_picture":"link"
+            }
+    it is a post method."""
     serializer = UserSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
@@ -44,6 +72,14 @@ def signup_user(request):
 @api_view(['POST'])
 #allow user login
 def login(request):
+    """
+    user gets to register
+    required json details include
+    {
+            "email":"sample@gmail.com",
+            "password":"samplepassword",
+            }
+    it is a post method."""
     user = get_object_or_404(CustomUser,email=request.data['email'])
     #first we check whether user has entered the right password
     if not user.check_password(request.data['password']):
@@ -55,11 +91,23 @@ def login(request):
 #an alternative login version where logic is inside serializer.py
 @api_view(["POST"])
 def login_user(request):
+    """
+    user gets to register
+    required json details include
+    {
+            "email":"sample@gmail.com",
+            "password":"samplepassword",
+            }
+    it is a post method."""
     serializer = LoginSerializer(data=request.data)
     if serializer.is_valid():
         return Response(serializer.validated_data)
     return Response(serializer.errors)
 class UserProfileView(RetrieveUpdateAPIView):
+    """
+    user view their profile
+    requires access token on tools like postman and curl or login using api-auth
+  ."""
     serializer_class = UserProfileSerializer
     permission_classes = [IsAuthenticated] #It ensures that the user is authenticated so that we can get the token
     def get_object(self): #returns the profile of the user
@@ -76,6 +124,11 @@ User = get_user_model()
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def follow_user(request,user_id):
+    """
+    user gets to follow another user
+    they must be logged in. They require to input id of that user,
+            }
+    it is a post method."""
     #we get that id of the user
     user_to_follow = User.objects.get(id=user_id)
     user_doing_the_following = request.user
@@ -98,6 +151,11 @@ def follow_user(request,user_id):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def unfollow_user(request,user_id):
+    """
+    user gets to unfollow a user
+    they must be logged in. They require to input id of that user,
+            }
+    it is a post method."""
     #first, we retrieve the user to unfollow
     user_to_unfollow = User.objects.get(id=user_id)
     #we check whether that user exists
@@ -134,6 +192,11 @@ class UnfollowUsers(generics.GenericAPIView):
             return Response({"Error":"User not found"})
 
 class ViewAllUsers(generics.GenericAPIView):
+    """
+    user gets to see all users registered
+    they must be logged in.
+            }
+    it is a get method."""
     permission_classes = [permissions.IsAuthenticated]
     
     def get(self,request):
