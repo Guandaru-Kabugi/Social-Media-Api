@@ -12,12 +12,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
-from dotenv import load_dotenv
 
-load_dotenv()
 
-my_public_key = os.getenv('AWS_ACCESS_KEY_ID')
-my_secret_key = os.getenv('AWS_SECRET_ACCESS_KEY')
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -158,9 +154,6 @@ SECURE_HSTS_SECONDS = 86400
 SECURE_HSTS_PRELOAD = True
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 X_FRAME_OPTIONS = 'DENY'
-
-AWS_ACCESS_KEY_ID = my_public_key
-AWS_SECRET_ACCESS_KEY = my_secret_key
 
 # DATABASES = {
 #     "default": {
